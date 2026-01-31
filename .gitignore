@@ -1,0 +1,17 @@
+node_modules
+.DS_Store
+.env
+dist
+build
+.cache
+.expo
+web-build
+
+# Shopify
+*.sqlite
+*.sqlite-journal
+
+# Mobile App
+.expo/
+*.jks
+*.keystore

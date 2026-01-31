@@ -1,0 +1,32 @@
+You are helping the user build a Shopify "mobile app builder" MVP.
+
+**Project Structure:**
+- `mobile-app/`: React Native (Expo) consumer app.
+- `mobile-builder-backend/`: Shopify Embedded App (Remix/Node).
+
+**Current Status:**
+1.  **Mobile App**:
+    -   Connected to Backend via ngrok.
+    -   Invite Code flow is **WORKING** (User verified).
+    -   LoginScreen saves `storeConfig` to AsyncStorage.
+    -   App displays the Store's website in a WebView upon login.
+2.  **Backend**:
+    -   Running with `ngrok` tunnel on port 8081.
+    -   API `api/validate-code` is working.
+    -   Database (SQLite) storing Invite Codes.
+3.  **Git**:
+    -   User wants to commit and push.
+    -   Need to determine if we use a monorepo (root) or separate repos.
+
+**Immediate Next Steps:**
+1.  **Git Setup**:
+    -   Initialize git in the root folder (`/Users/rbr/Desktop/Shopify`) to track both projects together (recommended for MVP).
+    -   Create a root `.gitignore`.
+    -   Ask user for their GitHub repository URL.
+2.  **Mobile App Refinement**:
+    -   Currently, it loads the *entire* Shopify theme in a WebView.
+    -   Next goal: Maybe customize the WebView or use the Storefront API to fetch native products? (User decision).
+3.  **Backend Features**:
+    -   Allow merchant to upload a logo or change colors (already in DB, need to use it in Mobile App).
+
+**Goal**: Secure the code in GitHub and then enhance the Mobile App experience.
