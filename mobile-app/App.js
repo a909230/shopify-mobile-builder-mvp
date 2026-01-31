@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, ActivityIndicator, SafeAreaView, Button } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { WebView } from 'react-native-webview';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from './src/screens/LoginScreen';
+import MainNavigator from './src/navigation/MainNavigator';
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -44,20 +45,15 @@ export default function App() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <NavigationContainer>
       <StatusBar style="auto" />
-      {/* 
-         NOTE: In a real app, you might want to hide the logout button 
-         or put it in a settings menu.
-      */}
-      <View style={{ height: '100%', width: '100%' }}>
-        <WebView 
-          source={{ uri: storeConfig.shopUrl }} 
-          style={{ flex: 1 }}
-        />
-        <Button title="Exit Store (Dev)" onPress={handleLogout} />
+      <MainNavigator storeConfig={storeConfig} onLogout={handleLogout} />
+      
+      {/* Dev Logout Button - Floating on top for now */}
+      <View style={styles.logoutButton}>
+        <Button title="Exit" onPress={handleLogout} color="red" />
       </View>
-    </SafeAreaView>
+    </NavigationContainer>
   );
 }
 
@@ -71,4 +67,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  logoutButton: {
+    position: 'absolute',
+    top: 50,
+    right: 20,
+    backgroundColor: 'rgba(255,255,255,0.8)',
+    borderRadius: 10,
+    zIndex: 1000
+  }
 });

@@ -6,27 +6,29 @@ You are helping the user build a Shopify "mobile app builder" MVP.
 
 **Current Status:**
 1.  **Mobile App**:
-    -   Connected to Backend via ngrok.
-    -   Invite Code flow is **WORKING** (User verified).
-    -   LoginScreen saves `storeConfig` to AsyncStorage.
-    -   App displays the Store's website in a WebView upon login.
+    -   **Native Tab Navigation** added (Home, Cart, Account).
+    -   LoginScreen saves `storeConfig`.
+    -   **IMPORTANT**: `LoginScreen.js` has a hardcoded `API_URL` that needs to be updated every time `ngrok` restarts.
 2.  **Backend**:
-    -   Running with `ngrok` tunnel on port 8081.
+    -   Uses `ngrok` on port 8081.
     -   API `api/validate-code` is working.
-    -   Database (SQLite) storing Invite Codes.
 3.  **Git**:
-    -   User wants to commit and push.
-    -   Need to determine if we use a monorepo (root) or separate repos.
+    -   Repo: `https://github.com/a909230/shopify-mobile-builder-mvp`
+    -   All changes (including navigation) are committed.
 
-**Immediate Next Steps:**
-1.  **Git Setup**:
-    -   Initialize git in the root folder (`/Users/rbr/Desktop/Shopify`) to track both projects together (recommended for MVP).
-    -   Create a root `.gitignore`.
-    -   Ask user for their GitHub repository URL.
-2.  **Mobile App Refinement**:
-    -   Currently, it loads the *entire* Shopify theme in a WebView.
-    -   Next goal: Maybe customize the WebView or use the Storefront API to fetch native products? (User decision).
-3.  **Backend Features**:
-    -   Allow merchant to upload a logo or change colors (already in DB, need to use it in Mobile App).
+**Immediate Action Required (Start of Session):**
+The user has likely just restarted their computer/terminals.
+1.  **Ask the user** if they have started `ngrok` and the backend yet.
+2.  **Remind them** to update `API_URL` in `mobile-app/src/screens/LoginScreen.js` with their new ngrok URL.
+3.  **Verify** the app is running before writing new code.
 
-**Goal**: Secure the code in GitHub and then enhance the Mobile App experience.
+**Next Development Goals:**
+1.  **Fetch Real Products**:
+    -   Currently, the app uses a `WebView` to show the store website.
+    -   The next step is to use the **Shopify Storefront API** to fetch a list of products (JSON) and render them using a native React Native `FlatList` for a better "app feel".
+2.  **Merchant Settings**:
+    -   Allow merchant to upload a logo/change colors in the Admin Dashboard (backend).
+    -   Reflect these changes in the Mobile App.
+
+**Reference:**
+-   See `RESTART_GUIDE.md` for the exact commands the user needs to run.
