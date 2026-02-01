@@ -46,6 +46,7 @@ export const action = async ({ request }) => {
       shop: storeConfig.shop,
       logoUrl: storeConfig.logoUrl,
       primaryColor: storeConfig.primaryColor,
+      storefrontAccessToken: storeConfig.storefrontAccessToken, // Return the token!
     }));
   } catch (error) {
     console.error(error);

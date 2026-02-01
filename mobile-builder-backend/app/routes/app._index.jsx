@@ -40,9 +40,49 @@ export const loader = async ({ request }) => {
 };
 
 export const action = async ({ request }) => {
-  const { session } = await authenticate.admin(request);
+  const { admin, session } = await authenticate.admin(request);
   const formData = await request.formData();
-  
+  const intent = formData.get("intent");
+
+  // Handle Token Generation
+  if (intent === "generateToken") {
+    const response = await admin.graphql(
+      `#graphql
+      mutation storefrontAccessTokenCreate($input: StorefrontAccessTokenCreateInput!) {
+        storefrontAccessTokenCreate(input: $input) {
+          storefrontAccessToken {
+            accessToken
+          }
+          userErrors {
+            field
+            message
+          }
+        }
+      }`,
+      {
+        variables: {
+          input: {
+            title: "Mobile App Builder",
+          },
+        },
+      }
+    );
+
+    const responseJson = await response.json();
+    const token = responseJson.data.storefrontAccessTokenCreate.storefrontAccessToken?.accessToken;
+
+    if (token) {
+      await db.storeConfig.update({
+        where: { shop: session.shop },
+        data: { storefrontAccessToken: token },
+      });
+      return json({ status: "success", token });
+    }
+    
+    return json({ status: "error", errors: responseJson.data.storefrontAccessTokenCreate.userErrors });
+  }
+
+  // Handle Settings Update
   const primaryColor = formData.get("primaryColor");
   const logoUrl = formData.get("logoUrl");
 
@@ -83,6 +123,30 @@ export default function Index() {
                     {config.shortCode}
                   </Text>
                 </Banner>
+
+                {/* API Token Section */}
+                <BlockStack gap="200">
+                  <Text as="h3" variant="headingSm">
+                    Native App Integration
+                  </Text>
+                  {config.storefrontAccessToken ? (
+                    <Banner tone="info">
+                      <p>✅ Native API Access Enabled</p>
+                    </Banner>
+                  ) : (
+                    <Banner tone="warning" title="API Access Needed">
+                      <p>Enable native products fetching by generating an access token.</p>
+                      <div style={{ marginTop: '10px' }}>
+                        <fetcher.Form method="post">
+                          <input type="hidden" name="intent" value="generateToken" />
+                          <Button submit loading={fetcher.state === "submitting"}>
+                            Enable Native App
+                          </Button>
+                        </fetcher.Form>
+                      </div>
+                    </Banner>
+                  )}
+                </BlockStack>
 
                 <BlockStack gap="200">
                   <Text as="h3" variant="headingSm">
