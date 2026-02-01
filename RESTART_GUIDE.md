@@ -27,16 +27,18 @@ const API_URL = 'https://YOUR-NEW-NGROK-URL.ngrok-free.app';
 ```
 *(Save the file).*
 
-## 4. Start the Mobile App
-Open a **new terminal tab**, navigate to the mobile app, and start Expo:
+## 4. Start the Mobile App (USB Recommended)
+Since WiFi connection was unstable, **use a USB cable** for your Android phone.
+1. Connect Android phone to Mac via USB.
+2. Enable "USB Debugging" on phone (Settings > Developer Options).
+3. Run this command in a new terminal tab:
 ```bash
 cd ~/Desktop/Shopify/mobile-app
 npx expo start
 ```
-*Keep this terminal open.*
+4. Press **`a`** in the terminal to launch on Android.
 
 ## 5. Test
-- Open the app on your simulator/phone.
 - If you are logged out, enter the Invite Code again.
 - If you are logged in, it should load the store.
 
