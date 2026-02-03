@@ -43,6 +43,11 @@ model StoreConfig {
   logoUrl     String?
   primaryColor String? @default("#000000")
   
+  // Home Screen
+  bannerUrl   String?
+  welcomeTitle String?
+  welcomeSubtitle String?
+  
   // API Access
   storefrontAccessToken String?
 

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useFetcher, useLoaderData } from "@remix-run/react";
 import {
   Page,
@@ -85,13 +85,19 @@ export const action = async ({ request }) => {
   // Handle Settings Update
   const primaryColor = formData.get("primaryColor");
   const logoUrl = formData.get("logoUrl");
+  const bannerUrl = formData.get("bannerUrl");
+  const welcomeTitle = formData.get("welcomeTitle");
+  const welcomeSubtitle = formData.get("welcomeSubtitle");
 
-  if (primaryColor || logoUrl) {
+  if (primaryColor || logoUrl || bannerUrl || welcomeTitle || welcomeSubtitle) {
     await db.storeConfig.update({
       where: { shop: session.shop },
       data: {
         ...(primaryColor && { primaryColor }),
         ...(logoUrl && { logoUrl }),
+        ...(bannerUrl && { bannerUrl }),
+        ...(welcomeTitle && { welcomeTitle }),
+        ...(welcomeSubtitle && { welcomeSubtitle }),
       },
     });
   }
@@ -102,6 +108,18 @@ export const action = async ({ request }) => {
 export default function Index() {
   const { config } = useLoaderData();
   const fetcher = useFetcher();
+  
+  // Local state for optimistic UI updates
+  const [formState, setFormState] = useState(config);
+
+  // Update local state when config changes (initial load)
+  useEffect(() => {
+    setFormState(config);
+  }, [config]);
+
+  const handleChange = (field) => (value) => {
+    setFormState({ ...formState, [field]: value });
+  };
 
   return (
     <Page>
@@ -165,18 +183,55 @@ export default function Index() {
                       <TextField
                         label="Logo URL"
                         name="logoUrl"
-                        defaultValue={config.logoUrl}
+                        value={formState.logoUrl || ""}
+                        onChange={handleChange("logoUrl")}
                         autoComplete="off"
                         helpText="Paste a URL to your logo image"
                       />
                       <TextField
                         label="Primary Color (Hex)"
                         name="primaryColor"
-                        defaultValue={config.primaryColor}
+                        value={formState.primaryColor || ""}
+                        onChange={handleChange("primaryColor")}
                         autoComplete="off"
                       />
                       <Button submit loading={fetcher.state === "submitting"}>
                         Save Settings
+                      </Button>
+                    </BlockStack>
+                  </fetcher.Form>
+                </BlockStack>
+                
+                <BlockStack gap="200">
+                  <Text as="h3" variant="headingSm">
+                    Home Screen
+                  </Text>
+                  <fetcher.Form method="post">
+                    <BlockStack gap="400">
+                      <TextField
+                        label="Banner Image URL"
+                        name="bannerUrl"
+                        value={formState.bannerUrl || ""}
+                        onChange={handleChange("bannerUrl")}
+                        autoComplete="off"
+                        helpText="Paste a URL for the home screen banner"
+                      />
+                      <TextField
+                        label="Welcome Title"
+                        name="welcomeTitle"
+                        value={formState.welcomeTitle || ""}
+                        onChange={handleChange("welcomeTitle")}
+                        autoComplete="off"
+                      />
+                      <TextField
+                        label="Welcome Subtitle"
+                        name="welcomeSubtitle"
+                        value={formState.welcomeSubtitle || ""}
+                        onChange={handleChange("welcomeSubtitle")}
+                        autoComplete="off"
+                      />
+                      <Button submit loading={fetcher.state === "submitting"}>
+                        Save Home Settings
                       </Button>
                     </BlockStack>
                   </fetcher.Form>

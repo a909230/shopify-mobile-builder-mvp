@@ -2,7 +2,7 @@
 
 client_id = "9587f0ef0b86add6a9d6754c86ca8736"
 name = "mobile-builder-backend"
-application_url = "https://example.com"
+application_url = "https://lutose-joyously-jasmine.ngrok-free.dev"
 embedded = true
 
 [build]
@@ -25,4 +25,8 @@ api_version = "2026-04"
 scopes = "write_products,unauthenticated_read_product_listings,unauthenticated_write_checkouts,unauthenticated_read_customer_tags,unauthenticated_read_content,unauthenticated_read_selling_plans,unauthenticated_write_customers,unauthenticated_read_customers"
 
 [auth]
-redirect_urls = [ "https://example.com/api/auth" ]
+redirect_urls = [
+  "https://lutose-joyously-jasmine.ngrok-free.dev/auth/callback",
+  "https://lutose-joyously-jasmine.ngrok-free.dev/auth/shopify/callback",
+  "https://lutose-joyously-jasmine.ngrok-free.dev/api/auth/callback"
+]

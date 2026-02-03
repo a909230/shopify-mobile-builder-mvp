@@ -46,6 +46,9 @@ export const action = async ({ request }) => {
       shop: storeConfig.shop,
       logoUrl: storeConfig.logoUrl,
       primaryColor: storeConfig.primaryColor,
+      bannerUrl: storeConfig.bannerUrl,
+      welcomeTitle: storeConfig.welcomeTitle,
+      welcomeSubtitle: storeConfig.welcomeSubtitle,
       storefrontAccessToken: storeConfig.storefrontAccessToken, // Return the token!
     }));
   } catch (error) {
