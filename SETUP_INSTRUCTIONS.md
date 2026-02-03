@@ -2,23 +2,15 @@
 
 ## 1. Scaffold the Shopify App (Backend)
 
-Because this requires logging into your Shopify Partner account, please run the following command in your terminal:
-
-```bash
-npm init @shopify/app@latest -- --name=shopify-backend --template=remix --path=.
-```
-
-- When asked, select your **Shopify Partner Organization**.
-- If asked to create a new app, say **Yes** and give it a name (e.g., "Mobile App Builder").
+The backend is located in `mobile-builder-backend`.
 
 ## 2. Database Setup (Prisma + Postgres)
 
-Once the Shopify app is scaffolded, navigate into the directory and set up Prisma.
-
 1.  **Navigate to the backend folder:**
     ```bash
-    cd shopify-backend
+    cd mobile-builder-backend
     ```
+
 
 2.  **Install Prisma:**
     ```bash
@@ -54,7 +46,7 @@ You will need to expose your local backend to the internet (Shopify CLI does thi
 
 1.  **Start Shopify App:**
     ```bash
-    cd shopify-backend
+    cd mobile-builder-backend
     npm run dev
     ```
     Copy the URL provided (e.g., `https://random-name.trycloudflare.com`).

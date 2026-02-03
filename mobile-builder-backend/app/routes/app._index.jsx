@@ -48,7 +48,7 @@ export const action = async ({ request }) => {
   if (intent === "generateToken") {
     const response = await admin.graphql(
       `#graphql
-      mutation storefrontAccessTokenCreate($input: StorefrontAccessTokenCreateInput!) {
+      mutation storefrontAccessTokenCreate($input: StorefrontAccessTokenInput!) {
         storefrontAccessTokenCreate(input: $input) {
           storefrontAccessToken {
             accessToken

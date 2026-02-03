@@ -1,24 +1,43 @@
-# Shopify Mobile Builder (MVP)
+# Shopify Mobile App Builder
 
-This repo will contain:
+A solution to let Shopify merchants build their own native mobile app.
 
-- A **Shopify embedded app** (merchant-facing) that lets a store configure branding/home layout and generates a **store code + QR**.
-- A **consumer mobile app** (customer-facing) where customers **scan QR or enter a code** to shop that store and checkout in a webview.
+- **Backend**: Remix app (Node.js) embedded in Shopify Admin.
+- **Mobile**: React Native (Expo) app for shoppers.
 
-## Product decisions (locked for MVP)
+## 🚀 Quick Start (Development)
 
-- Invite-only store access: **QR + short code**
-- Mobile: **React Native (Expo)**
-- Merchant app/backend: **Node.js (Remix)**
-- DB: **PostgreSQL (via Prisma)**
-- Checkout: **Shopify checkout in webview**
-- Language: **English only**
-- Pricing: **Free**
+**See [RESTART_GUIDE.md](./RESTART_GUIDE.md) for the detailed, error-proof setup guide.**
 
-## Folder layout (planned)
+### Summary
+1.  **Backend** (Port 8081):
+    ```bash
+    cd mobile-builder-backend
+    npm run dev -- --tunnel-url=https://lutose-joyously-jasmine.ngrok-free.dev:8081
+    ```
 
-- `shopify-app/` — embedded admin app + backend API
-- `mobile-app/` — Expo app
-- `assets/` — screenshots, listing assets, logos
-- `docs/` — reviewer instructions, privacy policy drafts, etc.
+2.  **USB Connection**:
+    ```bash
+    adb reverse tcp:8081 tcp:8081
+    adb reverse tcp:8083 tcp:8083
+    ```
 
+3.  **Mobile App** (Port 8083):
+    ```bash
+    cd mobile-app
+    npx expo start --localhost --port 8083 --reset-cache
+    ```
+
+4.  **Phone**: Open Expo Go and connect to `exp://localhost:8083`.
+
+## MVP Flow
+1.  Merchant installs Shopify app.
+2.  Merchant configures branding (Logo, Color).
+3.  App generates a **Store Code** (e.g., `123456`).
+4.  Shopper downloads the generic "Mobile Builder" app.
+5.  Shopper enters the Store Code.
+6.  App re-skins itself to match the merchant's branding and loads their products natively.
+
+## Project Structure
+- `mobile-builder-backend/`: The Shopify App (Remix/Prisma).
+- `mobile-app/`: The React Native consumer app.

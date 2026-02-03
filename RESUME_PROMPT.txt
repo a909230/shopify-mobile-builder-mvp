@@ -6,27 +6,23 @@ You are helping the user build a Shopify "mobile app builder" MVP.
 
 **Current Status:**
 1.  **Mobile App**:
-    -   Running with `npx expo start --tunnel`.
-    -   Native Tab Navigation works.
-    -   Dependencies are fixed.
-    -   **Pending**: Needs to update `LoginScreen.js` to use the new `storefrontAccessToken` returned by the backend.
+    -   Running with `npx expo start --localhost` (USB Mode).
+    -   Connected to Backend via ngrok.
+    -   **Native Tab Navigation** added (Home, Cart, Account).
+    -   LoginScreen saves `storeConfig`.
+    -   **IMPORTANT**: `LoginScreen.js` has a hardcoded `API_URL` that needs to be updated every time `ngrok` restarts.
 2.  **Backend**:
-    -   **Database Updated**: Added `storefrontAccessToken` to `StoreConfig` model.
-    -   **Dashboard Updated**: Added "Enable Native App" button to generate the token.
-    -   **API Updated**: `api/validate-code` now returns the token to the mobile app.
+    -   Uses `ngrok` on port 8081.
+    -   API `api/validate-code` returns `storefrontAccessToken`.
 3.  **Git**:
     -   Repo: `https://github.com/a909230/shopify-mobile-builder-mvp`
-    -   Latest commit: "Add storefront token support to backend".
+    -   All changes committed.
 
-**Immediate Action Required (Start of Session):**
-The user has just restarted their computer.
-1.  **Restart Environment**: Follow `RESTART_GUIDE.md`.
-2.  **Generate Token**: User needs to go to the Backend Dashboard (press `p`) and click **"Enable Native App"** if they haven't already.
-3.  **Next Coding Step**: Update `mobile-app/src/screens/LoginScreen.js` to save the `storefrontAccessToken` to `AsyncStorage` so other screens can use it to fetch products.
+**Goal for New Chat: "Fetch Real Products"**
+1.  **Update LoginScreen**: Modify `src/screens/LoginScreen.js` to save the `storefrontAccessToken` (which is now returned by the backend) into `AsyncStorage`.
+2.  **Create API Layer**: Create `src/api/shopify.js` to handle GraphQL requests using the token.
+3.  **Build Native Home**: Replace the WebView in `src/navigation/MainNavigator.js` (Home Tab) with a native `FlatList` that fetches products.
 
-**Next Development Goals:**
-1.  **Fetch Real Products**: Create a `ProductsScreen.js` that uses the token to fetch products via GraphQL.
-2.  **Display Products**: Replace the `WebView` in the "Home" tab with this native list.
-
-**Reference:**
--   See `RESTART_GUIDE.md` for restart instructions.
+**Instructions for AI:**
+-   The user has already started all terminals and verified the app is running on their phone.
+-   Start immediately with modifying `LoginScreen.js`.

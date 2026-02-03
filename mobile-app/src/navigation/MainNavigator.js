@@ -1,10 +1,36 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { WebView } from 'react-native-webview';
 import { Ionicons } from '@expo/vector-icons';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import ProductListScreen from '../screens/ProductListScreen';
+import ProductDetailsScreen from '../screens/ProductDetailsScreen';
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+// Stack Navigator for Home Tab
+const HomeStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen 
+        name="ProductList" 
+        component={ProductListScreen} 
+        options={{ 
+          title: 'Shop Products',
+          headerStyle: { backgroundColor: '#f4511e' },
+          headerTintColor: '#fff',
+        }} 
+      />
+      <Stack.Screen 
+        name="ProductDetails" 
+        component={ProductDetailsScreen} 
+        options={{ title: 'Details' }} 
+      />
+    </Stack.Navigator>
+  );
+};
 
 // Reusable WebView Screen
 const WebScreen = ({ url }) => {
@@ -57,7 +83,7 @@ export default function MainNavigator({ storeConfig, onLogout }) {
     >
       <Tab.Screen 
         name="Home" 
-        children={() => <WebScreen url={getUrl('/')} />} 
+        component={HomeStack}
       />
       <Tab.Screen 
         name="Cart" 

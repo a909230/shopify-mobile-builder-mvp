@@ -15,27 +15,39 @@ export default function LoginScreen({ onLogin }) {
     setLoading(true);
 
     try {
-      // 1. Simulate API call for now (until backend is ready)
-      // In real app: const res = await fetch(`${API_URL}/api/validate-code`, ...);
-      
-      console.log("Validating code:", code);
-      
-      // TEMPORARY: Allow any code for testing UI
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      const mockData = {
-        storeName: "Test Store",
-        shopUrl: "https://shopify.com" // Redirects to shopify for test
+      const response = await fetch(`${API_URL}/api/validate-code`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ code }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to join store');
+      }
+
+      console.log("Joined store:", data.shop);
+
+      const storeConfig = {
+        shop: data.shop,
+        logoUrl: data.logoUrl,
+        primaryColor: data.primaryColor,
+        storefrontAccessToken: data.storefrontAccessToken,
+        shopUrl: `https://${data.shop}` // derived for webview fallback
       };
 
       // 2. Save config
-      await AsyncStorage.setItem('storeConfig', JSON.stringify(mockData));
+      await AsyncStorage.setItem('storeConfig', JSON.stringify(storeConfig));
       
       // 3. Notify App.js
-      onLogin(mockData);
+      onLogin(storeConfig);
       
     } catch (error) {
-      Alert.alert('Error', 'Failed to connect to server');
+      console.error(error);
+      Alert.alert('Error', error.message || 'Failed to connect to server');
     } finally {
       setLoading(false);
     }
