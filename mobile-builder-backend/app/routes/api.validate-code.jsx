@@ -44,6 +44,7 @@ export const action = async ({ request }) => {
 
     return cors(request, json({
       shop: storeConfig.shop,
+      appName: storeConfig.appName,
       logoUrl: storeConfig.logoUrl,
       primaryColor: storeConfig.primaryColor,
       bannerUrl: storeConfig.bannerUrl,

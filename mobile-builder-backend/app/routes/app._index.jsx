@@ -88,8 +88,9 @@ export const action = async ({ request }) => {
   const bannerUrl = formData.get("bannerUrl");
   const welcomeTitle = formData.get("welcomeTitle");
   const welcomeSubtitle = formData.get("welcomeSubtitle");
+  const appName = formData.get("appName");
 
-  if (primaryColor || logoUrl || bannerUrl || welcomeTitle || welcomeSubtitle) {
+  if (primaryColor || logoUrl || bannerUrl || welcomeTitle || welcomeSubtitle || appName) {
     await db.storeConfig.update({
       where: { shop: session.shop },
       data: {
@@ -98,6 +99,7 @@ export const action = async ({ request }) => {
         ...(bannerUrl && { bannerUrl }),
         ...(welcomeTitle && { welcomeTitle }),
         ...(welcomeSubtitle && { welcomeSubtitle }),
+        ...(appName && { appName }),
       },
     });
   }
@@ -180,6 +182,14 @@ export default function Index() {
                   </Text>
                   <fetcher.Form method="post">
                     <BlockStack gap="400">
+                      <TextField
+                        label="App Name (for App Store)"
+                        name="appName"
+                        value={formState.appName || ""}
+                        onChange={handleChange("appName")}
+                        autoComplete="off"
+                        helpText="The name of your standalone app"
+                      />
                       <TextField
                         label="Logo URL"
                         name="logoUrl"

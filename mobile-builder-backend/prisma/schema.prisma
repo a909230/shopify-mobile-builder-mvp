@@ -51,6 +51,10 @@ model StoreConfig {
   // API Access
   storefrontAccessToken String?
 
+  // App Store Info
+  appName     String?  // The name displayed on the home screen/app store
+  bundleId    String?  // e.g. com.mobilebuilder.mystore
+  
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
