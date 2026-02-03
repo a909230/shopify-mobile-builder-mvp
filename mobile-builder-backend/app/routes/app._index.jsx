@@ -132,6 +132,14 @@ export default function Index() {
                   {config.storefrontAccessToken ? (
                     <Banner tone="info">
                       <p>✅ Native API Access Enabled</p>
+                      <div style={{ marginTop: '10px' }}>
+                        <fetcher.Form method="post">
+                          <input type="hidden" name="intent" value="generateToken" />
+                          <Button submit variant="plain" loading={fetcher.state === "submitting"}>
+                            Regenerate Token
+                          </Button>
+                        </fetcher.Form>
+                      </div>
                     </Banner>
                   ) : (
                     <Banner tone="warning" title="API Access Needed">

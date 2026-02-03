@@ -1,11 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, ActivityIndicator, SafeAreaView, Button } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, SafeAreaView, Button, Linking } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { CartProvider } from './src/context/CartContext';
+import { ThemeProvider } from './src/context/ThemeContext';
 import LoginScreen from './src/screens/LoginScreen';
 import MainNavigator from './src/navigation/MainNavigator';
+
+const linking = {
+  prefixes: ['mobilebuilder://'],
+  config: {
+    screens: {
+      Home: {
+        screens: {
+          ProductList: 'products',
+          ProductDetails: 'product/:productId',
+        },
+      },
+      Cart: 'cart',
+      Account: 'account',
+    },
+  },
+};
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -46,17 +63,19 @@ export default function App() {
   }
 
   return (
-    <CartProvider>
-      <NavigationContainer>
-        <StatusBar style="auto" />
-        <MainNavigator storeConfig={storeConfig} onLogout={handleLogout} />
-        
-        {/* Dev Logout Button - Floating on top for now */}
-        <View style={styles.logoutButton}>
-          <Button title="Exit" onPress={handleLogout} color="red" />
-        </View>
-      </NavigationContainer>
-    </CartProvider>
+    <ThemeProvider config={storeConfig}>
+      <CartProvider>
+        <NavigationContainer linking={linking}>
+          <StatusBar style="auto" />
+          <MainNavigator onLogout={handleLogout} />
+          
+          {/* Dev Logout Button - Floating on top for now */}
+          <View style={styles.logoutButton}>
+            <Button title="Exit" onPress={handleLogout} color="red" />
+          </View>
+        </NavigationContainer>
+      </CartProvider>
+    </ThemeProvider>
   );
 }
 

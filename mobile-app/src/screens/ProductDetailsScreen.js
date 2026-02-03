@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, Image, Button, StyleSheet, ActivityIndicator, Dimensions, Alert } from 'react-native';
 import { fetchProductDetails } from '../api/shopify';
 import { useCart } from '../context/CartContext';
+import { useTheme } from '../context/ThemeContext';
 
 const { width } = Dimensions.get('window');
 
 export default function ProductDetailsScreen({ route }) {
   const { productId } = route.params;
   const { addToCart } = useCart();
+  const { colors } = useTheme();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -83,7 +85,7 @@ export default function ProductDetailsScreen({ route }) {
       </ScrollView>
 
       <View style={styles.footer}>
-        <Button title="Add to Cart" onPress={handleAddToCart} color="#000" />
+        <Button title="Add to Cart" onPress={handleAddToCart} color={colors.primary} />
       </View>
     </View>
   );

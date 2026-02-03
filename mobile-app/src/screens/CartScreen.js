@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, FlatList, Image, Button, StyleSheet, TouchableOpacity, Alert, Linking, ActivityIndicator } from 'react-native';
 import { useCart } from '../context/CartContext';
+import { useTheme } from '../context/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function CartScreen() {
   const { cart, removeFromCart, updateQuantity, getCartTotal, checkout, clearCart } = useCart();
+  const { colors } = useTheme();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   const handleCheckout = async () => {
@@ -85,7 +87,7 @@ export default function CartScreen() {
         </View>
         
         <TouchableOpacity 
-          style={[styles.checkoutButton, isCheckingOut && styles.disabledButton]} 
+          style={[styles.checkoutButton, { backgroundColor: colors.primary }, isCheckingOut && styles.disabledButton]} 
           onPress={handleCheckout}
           disabled={isCheckingOut}
         >
@@ -146,7 +148,6 @@ const styles = StyleSheet.create({
   totalLabel: { fontSize: 18, fontWeight: '500' },
   totalPrice: { fontSize: 22, fontWeight: 'bold' },
   checkoutButton: {
-    backgroundColor: '#000',
     paddingVertical: 14,
     borderRadius: 8,
     alignItems: 'center',

@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert, ActivityIndicator, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// TODO: Replace with your actual backend URL (from `npm run dev` in backend folder)
-// It will look like: https://RANDOM-STRING.trycloudflare.com
-const API_URL = 'https://lutose-joyously-jasmine.ngrok-free.dev';
+// Default URL - can be edited in the app
+const DEFAULT_API_URL = 'https://lutose-joyously-jasmine.ngrok-free.dev';
 
 export default function LoginScreen({ onLogin }) {
   const [code, setCode] = useState('');
+  const [apiUrl, setApiUrl] = useState(DEFAULT_API_URL);
   const [loading, setLoading] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   const handleLogin = async () => {
     if (!code) return;
     setLoading(true);
 
     try {
-      const response = await fetch(`${API_URL}/api/validate-code`, {
+      // Remove trailing slash if present
+      const cleanUrl = apiUrl.endsWith('/') ? apiUrl.slice(0, -1) : apiUrl;
+      const response = await fetch(`${cleanUrl}/api/validate-code`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -73,6 +76,23 @@ export default function LoginScreen({ onLogin }) {
       ) : (
         <Button title="Enter Store" onPress={handleLogin} />
       )}
+
+      <TouchableOpacity onPress={() => setShowSettings(!showSettings)} style={styles.settingsToggle}>
+        <Text style={styles.settingsText}>{showSettings ? 'Hide Settings' : 'Server Settings'}</Text>
+      </TouchableOpacity>
+
+      {showSettings && (
+        <View style={styles.settingsContainer}>
+          <Text style={styles.label}>Backend URL:</Text>
+          <TextInput
+            style={[styles.input, styles.urlInput]}
+            value={apiUrl}
+            onChangeText={setApiUrl}
+            placeholder="https://..."
+            autoCapitalize="none"
+          />
+        </View>
+      )}
     </View>
   );
 }
@@ -91,4 +111,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     letterSpacing: 2
   },
+  settingsToggle: { marginTop: 20, alignItems: 'center' },
+  settingsText: { color: '#666', textDecorationLine: 'underline' },
+  settingsContainer: { marginTop: 20, padding: 10, backgroundColor: '#f9f9f9', borderRadius: 8 },
+  label: { marginBottom: 5, fontWeight: 'bold', color: '#444' },
+  urlInput: { fontSize: 14, textAlign: 'left', letterSpacing: 0, marginBottom: 0 }
 });

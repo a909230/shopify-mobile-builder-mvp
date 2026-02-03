@@ -7,13 +7,17 @@ import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import ProductListScreen from '../screens/ProductListScreen';
 import ProductDetailsScreen from '../screens/ProductDetailsScreen';
 import CartScreen from '../screens/CartScreen';
+import AccountScreen from '../screens/AccountScreen';
 import { useCart } from '../context/CartContext';
+import { useTheme } from '../context/ThemeContext';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 // Stack Navigator for Home Tab
 const HomeStack = () => {
+  const { colors } = useTheme();
+  
   return (
     <Stack.Navigator>
       <Stack.Screen 
@@ -21,8 +25,8 @@ const HomeStack = () => {
         component={ProductListScreen} 
         options={{ 
           title: 'Shop Products',
-          headerStyle: { backgroundColor: '#f4511e' },
-          headerTintColor: '#fff',
+          headerStyle: { backgroundColor: colors.primary },
+          headerTintColor: colors.white,
         }} 
       />
       <Stack.Screen 
@@ -49,17 +53,15 @@ const WebScreen = ({ url }) => {
   );
 };
 
-export default function MainNavigator({ storeConfig, onLogout }) {
+export default function MainNavigator({ onLogout }) {
   const { cart } = useCart();
-  // Default to black if no color provided
-  const primaryColor = storeConfig.primaryColor || '#000000';
-  const shopUrl = storeConfig.shopUrl || 'https://shopify.com';
+  const { colors, shop } = useTheme();
 
   // Helper to construct URLs
   // Note: In a real app, you might need more robust URL handling
   const getUrl = (path) => {
     // Remove trailing slash if present
-    const base = shopUrl.endsWith('/') ? shopUrl.slice(0, -1) : shopUrl;
+    const base = shop.url.endsWith('/') ? shop.url.slice(0, -1) : shop.url;
     return `${base}${path}`;
   };
 
@@ -67,7 +69,7 @@ export default function MainNavigator({ storeConfig, onLogout }) {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarActiveTintColor: primaryColor,
+        tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: 'gray',
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
@@ -99,7 +101,7 @@ export default function MainNavigator({ storeConfig, onLogout }) {
       />
       <Tab.Screen 
         name="Account" 
-        children={() => <WebScreen url={getUrl('/account')} />} 
+        component={AccountScreen} 
       />
     </Tab.Navigator>
   );

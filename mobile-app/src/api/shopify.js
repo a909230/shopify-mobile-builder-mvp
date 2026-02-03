@@ -186,3 +186,119 @@ export async function createCheckout(lineItems) {
     throw error;
   }
 }
+
+export async function loginCustomer(email, password) {
+  try {
+    const configStr = await AsyncStorage.getItem('storeConfig');
+    if (!configStr) throw new Error('No store config found');
+    
+    const config = JSON.parse(configStr);
+    const { shop, storefrontAccessToken } = config;
+
+    const query = `
+      mutation customerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
+        customerAccessTokenCreate(input: $input) {
+          customerAccessToken {
+            accessToken
+            expiresAt
+          }
+          customerUserErrors {
+            code
+            message
+          }
+        }
+      }
+    `;
+
+    const response = await fetch(`https://${shop}/api/2024-01/graphql.json`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': storefrontAccessToken,
+      },
+      body: JSON.stringify({ 
+        query,
+        variables: { input: { email, password } }
+      }),
+    });
+
+    const json = await response.json();
+    
+    if (json.errors) {
+      throw new Error(json.errors[0].message);
+    }
+
+    const { customerAccessToken, customerUserErrors } = json.data.customerAccessTokenCreate;
+
+    if (customerUserErrors && customerUserErrors.length > 0) {
+      throw new Error(customerUserErrors[0].message);
+    }
+
+    return customerAccessToken.accessToken;
+  } catch (error) {
+    console.error('Error logging in customer:', error);
+    throw error;
+  }
+}
+
+export async function fetchCustomerOrders(accessToken) {
+  try {
+    const configStr = await AsyncStorage.getItem('storeConfig');
+    if (!configStr) throw new Error('No store config found');
+    
+    const config = JSON.parse(configStr);
+    const { shop, storefrontAccessToken } = config;
+
+    const query = `
+      query customer {
+        customer(customerAccessToken: "${accessToken}") {
+          firstName
+          lastName
+          orders(first: 10, reverse: true) {
+            edges {
+              node {
+                id
+                orderNumber
+                processedAt
+                totalPrice {
+                  amount
+                  currencyCode
+                }
+                financialStatus
+                fulfillmentStatus
+                lineItems(first: 5) {
+                  edges {
+                    node {
+                      title
+                      quantity
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `;
+
+    const response = await fetch(`https://${shop}/api/2024-01/graphql.json`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': storefrontAccessToken,
+      },
+      body: JSON.stringify({ query }),
+    });
+
+    const json = await response.json();
+    
+    if (json.errors) {
+      throw new Error(json.errors[0].message);
+    }
+
+    return json.data.customer;
+  } catch (error) {
+    console.error('Error fetching customer orders:', error);
+    throw error;
+  }
+}

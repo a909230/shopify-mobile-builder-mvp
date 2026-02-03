@@ -6,23 +6,29 @@ You are helping the user build a Shopify "mobile app builder" MVP.
 
 **Current Status:**
 1.  **Mobile App**:
-    -   Running with `npx expo start --localhost` (USB Mode).
-    -   Connected to Backend via ngrok.
-    -   **Native Tab Navigation** added (Home, Cart, Account).
-    -   LoginScreen saves `storeConfig`.
-    -   **IMPORTANT**: `LoginScreen.js` has a hardcoded `API_URL` that needs to be updated every time `ngrok` restarts.
+    -   **Native Shopping Cart**: Working with `CartContext` and checkout URL generation.
+    -   **Native Account Screen**:
+        -   Customer Login (Email/Password).
+        -   Order History List (Native UI).
+    -   **Theming**:
+        -   `ThemeContext` powers dynamic colors (Primary Color) and branding based on Store Config.
+    -   **Server Settings**:
+        -   `LoginScreen.js` now allows editing the Backend URL directly in the app (no code change needed for ngrok restarts).
+    -   **Deep Linking**:
+        -   Configured `mobilebuilder://` scheme (prepared for checkout callbacks).
 2.  **Backend**:
-    -   Uses `ngrok` on port 8081.
-    -   API `api/validate-code` returns `storefrontAccessToken`.
+    -   API `api/validate-code` returns Store Config & Token.
+    -   **Scopes Updated**: Added `unauthenticated_write_customers` and `unauthenticated_read_customers` for customer login.
+    -   **Dashboard**: Added "Regenerate Token" button to apply new scopes.
 3.  **Git**:
     -   Repo: `https://github.com/a909230/shopify-mobile-builder-mvp`
-    -   All changes committed.
 
-**Goal for New Chat: "Fetch Real Products"**
-1.  **Update LoginScreen**: Modify `src/screens/LoginScreen.js` to save the `storefrontAccessToken` (which is now returned by the backend) into `AsyncStorage`.
-2.  **Create API Layer**: Create `src/api/shopify.js` to handle GraphQL requests using the token.
-3.  **Build Native Home**: Replace the WebView in `src/navigation/MainNavigator.js` (Home Tab) with a native `FlatList` that fetches products.
+**Goal for New Chat: "Homepage & Push Notifications"**
+1.  **Homepage Customization**: Allow merchant to select "Featured Collection" or "Banner" in the admin, and render it natively.
+2.  **Push Notifications**: Setup Expo Push Notifications for order updates.
+3.  **App Store Prep**: Icon generation, splash screen finalization.
 
 **Instructions for AI:**
--   The user has already started all terminals and verified the app is running on their phone.
--   Start immediately with modifying `LoginScreen.js`.
+-   The user has the app running.
+-   The Account, Cart, and Product flows are working natively.
+-   Focus on making the "Home" tab more dynamic and configurable by the merchant.

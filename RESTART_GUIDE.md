@@ -16,11 +16,15 @@ The backend manages the Shopify connection.
 2.  Run:
     ```bash
     cd mobile-builder-backend
-    npm run dev -- --tunnel-url=https://lutose-joyously-jasmine.ngrok-free.dev:8081
+    npm run dev
     ```
+    *(Note: If you want to keep the same URL, use `npm run dev -- --tunnel-url=YOUR_NGROK_URL`)*
 3.  Wait until you see: `✅ Ready, watching for changes`.
 
-*(Note: We use a fixed ngrok domain so you don't have to update the mobile app code every time. If this tunnel expires, just remove the `--tunnel-url` flag, but you'll have to update `LoginScreen.js` with the new random URL).*
+**IMPORTANT**: If your ngrok URL changes:
+1.  You do **NOT** need to edit the code anymore.
+2.  On the Mobile App Login Screen, tap **"Server Settings"**.
+3.  Enter the new backend URL (e.g., `https://random-name.ngrok-free.app`).
 
 ---
 
@@ -64,8 +68,7 @@ We run the mobile app on port **8083** to ensure it doesn't conflict with the ba
 *   **"Network Error" when logging in?**
     *   Check if backend is running on 8081.
     *   Run `adb reverse tcp:8081 tcp:8081` again.
-*   **"Failed to download remote update"?**
-    *   You are probably trying to connect via Wi-Fi/LAN. Switch to `exp://localhost:8083` and ensure `adb reverse tcp:8083 tcp:8083` was run.
-*   **App stuck on loading?**
-    *   Shake phone -> Reload.
-    *   Restart the mobile app terminal with `--reset-cache`.
+    *   Verify the URL in "Server Settings" on the login screen matches your backend URL.
+*   **"Failed to load profile" / Login Errors?**
+    *   Go to your Shopify Admin > Apps > Mobile App Builder.
+    *   Click **"Regenerate Token"** to ensure your token has the latest permissions (Customer Read/Write).
