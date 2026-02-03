@@ -39,6 +39,9 @@ export default function LoginScreen({ onLogin }) {
         logoUrl: data.logoUrl,
         primaryColor: data.primaryColor,
         storefrontAccessToken: data.storefrontAccessToken,
+        bannerUrl: data.bannerUrl,
+        welcomeTitle: data.welcomeTitle,
+        welcomeSubtitle: data.welcomeSubtitle,
         shopUrl: `https://${data.shop}` // derived for webview fallback
       };
 

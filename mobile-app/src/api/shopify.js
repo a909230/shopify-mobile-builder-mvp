@@ -48,6 +48,13 @@ export async function fetchProducts() {
       body: JSON.stringify({ query }),
     });
 
+    if (!response.ok) {
+       console.log('Fetch Products Error Status:', response.status);
+       const text = await response.text();
+       console.log('Fetch Products Error Body:', text);
+       throw new Error(`Network Error: ${response.status} ${response.statusText}`);
+    }
+
     const json = await response.json();
     
     if (json.errors) {

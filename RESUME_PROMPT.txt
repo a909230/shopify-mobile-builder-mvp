@@ -6,30 +6,27 @@ You are helping the user build a Shopify "mobile app builder" MVP.
 
 **Current Status:**
 1.  **Mobile App**:
-    -   **Native Shopping Cart**: Working with `CartContext` and checkout URL generation.
-    -   **Native Account Screen**:
-        -   Customer Login (Email/Password).
-        -   Order History List (Native UI).
-    -   **Theming**:
-        -   `ThemeContext` powers dynamic colors (Primary Color) and branding based on Store Config.
-    -   **Server Settings**:
-        -   `LoginScreen.js` allows editing the Backend URL directly.
-        -   **IMPORTANT**: Requires starting `ngrok http 8081` manually first to ensure a stable connection.
-    -   **Deep Linking**:
-        -   Configured `mobilebuilder://` scheme (prepared for checkout callbacks).
+    -   **Native Shopping Cart**: Working.
+    -   **Native Account Screen**: Login & Orders.
+    -   **Theming & Homepage**: Dynamic Banner/Title.
+    -   **White Label Architecture**:
+        -   Refactored to support "One Codebase, Many Apps".
+        -   `npm run configure <CODE>` fetches merchant config and bakes it into the app.
+        -   `app.config.js` and `build.js` now drive the build process.
+    -   **Server Settings**: Editable in Login Screen.
 2.  **Backend**:
-    -   API `api/validate-code` returns Store Config & Token.
-    -   **Scopes Updated**: Added `unauthenticated_write_customers` and `unauthenticated_read_customers` for customer login.
-    -   **Dashboard**: Added "Regenerate Token" button to apply new scopes.
+    -   **Store Config**: Extended to support `bannerUrl`, `welcomeTitle`, `welcomeSubtitle`.
+    -   **Admin Dashboard**: Added "Home Screen" section for merchants to configure the app's look.
+    -   **Scopes**: Includes `unauthenticated_read/write_customers` for login.
 3.  **Git**:
     -   Repo: `https://github.com/a909230/shopify-mobile-builder-mvp`
 
-**Goal for New Chat: "Homepage & Push Notifications"**
-1.  **Homepage Customization**: Allow merchant to select "Featured Collection" or "Banner" in the admin, and render it natively.
-2.  **Push Notifications**: Setup Expo Push Notifications for order updates.
-3.  **App Store Prep**: Icon generation, splash screen finalization.
+**Goal for New Chat: "Push Notifications & App Store Prep"**
+1.  **Push Notifications**: Setup Expo Push Notifications for order updates.
+2.  **App Store Prep**: Icon generation, splash screen finalization.
+3.  **Publishing Workflow**: Execute the steps in `PUBLISHING.md` (Google Play/App Store).
 
 **Instructions for AI:**
 -   The user has the app running.
--   The Account, Cart, and Product flows are working natively.
--   Focus on making the "Home" tab more dynamic and configurable by the merchant.
+-   The Native Shopping, Account, Homepage, and White Label Builder flows are complete.
+-   Next focus is on re-engagement (Push Notifications) or polish (Icons).

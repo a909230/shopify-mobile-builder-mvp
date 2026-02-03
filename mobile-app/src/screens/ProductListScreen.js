@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Image, StyleSheet, ActivityIndicator, SafeAreaView, TouchableOpacity } from 'react-native';
 import { fetchProducts } from '../api/shopify';
+import { useTheme } from '../context/ThemeContext';
 
 export default function ProductListScreen({ navigation }) {
+  const { colors, shop } = useTheme();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -51,6 +53,26 @@ export default function ProductListScreen({ navigation }) {
     );
   };
 
+  const renderHeader = () => {
+    if (!shop.home.bannerUrl && !shop.home.title) return null;
+    
+    return (
+      <View style={styles.headerContainer}>
+        {shop.home.bannerUrl && (
+          <Image source={{ uri: shop.home.bannerUrl }} style={styles.bannerImage} />
+        )}
+        <View style={styles.headerTextContainer}>
+           {shop.home.title && (
+             <Text style={[styles.headerTitle, { color: colors.text }]}>{shop.home.title}</Text>
+           )}
+           {shop.home.subtitle && (
+             <Text style={[styles.headerSubtitle, { color: colors.secondaryText }]}>{shop.home.subtitle}</Text>
+           )}
+        </View>
+      </View>
+    );
+  };
+
   if (loading) {
     return (
       <View style={styles.center}>
@@ -70,6 +92,7 @@ export default function ProductListScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
+        ListHeaderComponent={renderHeader}
         data={products}
         renderItem={renderItem}
         keyExtractor={item => item.id}
@@ -99,4 +122,24 @@ const styles = StyleSheet.create({
   title: { fontSize: 16, fontWeight: 'bold', marginBottom: 5 },
   price: { fontSize: 14, color: '#666' },
   error: { color: 'red' },
+  headerContainer: {
+    marginBottom: 20,
+    backgroundColor: '#fff',
+  },
+  bannerImage: {
+    width: '100%',
+    height: 180,
+    resizeMode: 'cover',
+  },
+  headerTextContainer: {
+    padding: 15,
+  },
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  headerSubtitle: {
+    fontSize: 16,
+  },
 });

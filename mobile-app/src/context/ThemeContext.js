@@ -21,7 +21,12 @@ export const ThemeProvider = ({ config, children }) => {
         name: config.shop,
         logoUrl: config.logoUrl,
         url: config.shopUrl,
-        storefrontAccessToken: config.storefrontAccessToken
+        storefrontAccessToken: config.storefrontAccessToken,
+        home: {
+          bannerUrl: config.bannerUrl,
+          title: config.welcomeTitle,
+          subtitle: config.welcomeSubtitle
+        }
       }
     };
   }, [config]);

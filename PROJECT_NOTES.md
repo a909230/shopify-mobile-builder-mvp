@@ -10,8 +10,16 @@
 6. **New**: Native Shopping Cart & Checkout Flow implemented.
 7. **New**: Native Account Screen (Login & Order History) implemented.
 8. **New**: Dynamic Theming (Primary Color) implemented.
+9. **New**: Dynamic Homepage (Banner, Title) configured via Admin.
+10. **New**: White Label Architecture & Builder Script implemented.
 
-## Links / Credentials (fill in as you create them)
+## Documentation
+- See `PUBLISHING.md` for the complete guide on building and submitting apps to Google Play and the App Store.
+
+## White Label Build Process
+1. Run `npm run configure <STORE_CODE>` in `mobile-app/`.
+2. This fetches config from backend and updates `src/config/customer.json`.
+3. Run `eas build` to generate the standalone app for that customer.
 - Shopify Partner org:
 - Shopify App name:
 - App URL:

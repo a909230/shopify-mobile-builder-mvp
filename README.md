@@ -37,6 +37,8 @@ A solution to let Shopify merchants build their own native mobile app.
 5.  Shopper enters the Store Code.
 6.  App re-skins itself to match the merchant's branding and loads their products natively.
 
-## Project Structure
-- `mobile-builder-backend/`: The Shopify App (Remix/Prisma).
-- `mobile-app/`: The React Native consumer app.
+## Documentation
+- [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md): **Start Here!** Comprehensive guide to understanding and mastering the codebase.
+- [RESTART_GUIDE.md](./RESTART_GUIDE.md): How to run the dev environment locally.
+- [PUBLISHING.md](./PUBLISHING.md): How to build & publish white-label apps for clients.
+- [PROJECT_NOTES.md](./PROJECT_NOTES.md): Current project status and roadmap.

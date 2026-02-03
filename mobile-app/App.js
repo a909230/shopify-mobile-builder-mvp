@@ -7,6 +7,7 @@ import { CartProvider } from './src/context/CartContext';
 import { ThemeProvider } from './src/context/ThemeContext';
 import LoginScreen from './src/screens/LoginScreen';
 import MainNavigator from './src/navigation/MainNavigator';
+import { BUILD_CONFIG } from './src/config/build';
 
 const linking = {
   prefixes: ['mobilebuilder://'],
@@ -34,6 +35,14 @@ export default function App() {
 
   const checkLogin = async () => {
     try {
+      // 1. Check for White Label Build Config
+      if (BUILD_CONFIG) {
+        console.log("Using White Label Config");
+        setStoreConfig(BUILD_CONFIG);
+        return;
+      }
+
+      // 2. Fallback to Stored Config (Preview Mode)
       const stored = await AsyncStorage.getItem('storeConfig');
       if (stored) {
         setStoreConfig(JSON.parse(stored));
@@ -46,6 +55,9 @@ export default function App() {
   };
 
   const handleLogout = async () => {
+    // Prevent logout in White Label mode
+    if (BUILD_CONFIG) return;
+    
     await AsyncStorage.removeItem('storeConfig');
     setStoreConfig(null);
   };
@@ -69,10 +81,12 @@ export default function App() {
           <StatusBar style="auto" />
           <MainNavigator onLogout={handleLogout} />
           
-          {/* Dev Logout Button - Floating on top for now */}
-          <View style={styles.logoutButton}>
-            <Button title="Exit" onPress={handleLogout} color="red" />
-          </View>
+          {/* Dev Logout Button - Only show in Preview Mode */}
+          {!BUILD_CONFIG && (
+            <View style={styles.logoutButton}>
+              <Button title="Exit" onPress={handleLogout} color="red" />
+            </View>
+          )}
         </NavigationContainer>
       </CartProvider>
     </ThemeProvider>
