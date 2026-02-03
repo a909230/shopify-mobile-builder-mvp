@@ -13,7 +13,8 @@ You are helping the user build a Shopify "mobile app builder" MVP.
     -   **Theming**:
         -   `ThemeContext` powers dynamic colors (Primary Color) and branding based on Store Config.
     -   **Server Settings**:
-        -   `LoginScreen.js` now allows editing the Backend URL directly in the app (no code change needed for ngrok restarts).
+        -   `LoginScreen.js` allows editing the Backend URL directly.
+        -   **IMPORTANT**: Requires starting `ngrok http 8081` manually first to ensure a stable connection.
     -   **Deep Linking**:
         -   Configured `mobilebuilder://` scheme (prepared for checkout callbacks).
 2.  **Backend**:

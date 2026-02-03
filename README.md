@@ -10,19 +10,18 @@ A solution to let Shopify merchants build their own native mobile app.
 **See [RESTART_GUIDE.md](./RESTART_GUIDE.md) for the detailed, error-proof setup guide.**
 
 ### Summary
-1.  **Backend** (Port 8081):
+1.  **Tunnel**: `ngrok http 8081` (Copy the https URL).
+2.  **Backend**:
     ```bash
     cd mobile-builder-backend
-    npm run dev -- --tunnel-url=https://lutose-joyously-jasmine.ngrok-free.dev:8081
+    npm run dev -- --tunnel-url=YOUR_NGROK_URL:8081
     ```
-
-2.  **USB Connection**:
+3.  **USB Connection**:
     ```bash
     adb reverse tcp:8081 tcp:8081
     adb reverse tcp:8083 tcp:8083
     ```
-
-3.  **Mobile App** (Port 8083):
+4.  **Mobile App**:
     ```bash
     cd mobile-app
     npx expo start --localhost --port 8083 --reset-cache
