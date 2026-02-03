@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, Image, Button, StyleSheet, ActivityIndicator, Dimensions, Alert } from 'react-native';
 import { fetchProductDetails } from '../api/shopify';
+import { useCart } from '../context/CartContext';
 
 const { width } = Dimensions.get('window');
 
 export default function ProductDetailsScreen({ route }) {
   const { productId } = route.params;
+  const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -26,7 +28,10 @@ export default function ProductDetailsScreen({ route }) {
   };
 
   const handleAddToCart = () => {
-    Alert.alert('Success', 'Added to cart (Mock)');
+    if (!product || !product.variants?.edges?.[0]?.node) return;
+    const variant = product.variants.edges[0].node;
+    addToCart(product, variant);
+    Alert.alert('Success', 'Added to cart');
   };
 
   if (loading) {

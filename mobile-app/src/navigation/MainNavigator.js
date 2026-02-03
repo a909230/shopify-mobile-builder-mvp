@@ -6,6 +6,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import ProductListScreen from '../screens/ProductListScreen';
 import ProductDetailsScreen from '../screens/ProductDetailsScreen';
+import CartScreen from '../screens/CartScreen';
+import { useCart } from '../context/CartContext';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -48,6 +50,7 @@ const WebScreen = ({ url }) => {
 };
 
 export default function MainNavigator({ storeConfig, onLogout }) {
+  const { cart } = useCart();
   // Default to black if no color provided
   const primaryColor = storeConfig.primaryColor || '#000000';
   const shopUrl = storeConfig.shopUrl || 'https://shopify.com';
@@ -87,7 +90,12 @@ export default function MainNavigator({ storeConfig, onLogout }) {
       />
       <Tab.Screen 
         name="Cart" 
-        children={() => <WebScreen url={getUrl('/cart')} />} 
+        component={CartScreen} 
+        options={{
+          headerShown: true,
+          title: 'My Cart',
+          tabBarBadge: cart.length > 0 ? cart.reduce((acc, item) => acc + item.quantity, 0) : null,
+        }}
       />
       <Tab.Screen 
         name="Account" 

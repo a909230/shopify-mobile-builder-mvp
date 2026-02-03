@@ -3,6 +3,7 @@ import { StyleSheet, View, ActivityIndicator, SafeAreaView, Button } from 'react
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
+import { CartProvider } from './src/context/CartContext';
 import LoginScreen from './src/screens/LoginScreen';
 import MainNavigator from './src/navigation/MainNavigator';
 
@@ -45,15 +46,17 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <StatusBar style="auto" />
-      <MainNavigator storeConfig={storeConfig} onLogout={handleLogout} />
-      
-      {/* Dev Logout Button - Floating on top for now */}
-      <View style={styles.logoutButton}>
-        <Button title="Exit" onPress={handleLogout} color="red" />
-      </View>
-    </NavigationContainer>
+    <CartProvider>
+      <NavigationContainer>
+        <StatusBar style="auto" />
+        <MainNavigator storeConfig={storeConfig} onLogout={handleLogout} />
+        
+        {/* Dev Logout Button - Floating on top for now */}
+        <View style={styles.logoutButton}>
+          <Button title="Exit" onPress={handleLogout} color="red" />
+        </View>
+      </NavigationContainer>
+    </CartProvider>
   );
 }
 

@@ -123,3 +123,66 @@ export async function fetchProductDetails(productId) {
     throw error;
   }
 }
+
+export async function createCheckout(lineItems) {
+  try {
+    const configStr = await AsyncStorage.getItem('storeConfig');
+    if (!configStr) throw new Error('No store config found');
+    
+    const config = JSON.parse(configStr);
+    const { shop, storefrontAccessToken } = config;
+
+    const query = `
+      mutation cartCreate($input: CartInput) {
+        cartCreate(input: $input) {
+          cart {
+            id
+            checkoutUrl
+          }
+          userErrors {
+            field
+            message
+          }
+        }
+      }
+    `;
+
+    const formattedLines = lineItems.map(item => ({
+      merchandiseId: item.variant.id,
+      quantity: item.quantity
+    }));
+
+    const response = await fetch(`https://${shop}/api/2024-01/graphql.json`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': storefrontAccessToken,
+      },
+      body: JSON.stringify({ 
+        query,
+        variables: { input: { lines: formattedLines } }
+      }),
+    });
+
+    const json = await response.json();
+    
+    if (json.errors) {
+      throw new Error(json.errors[0].message);
+    }
+
+    const { cart, userErrors } = json.data.cartCreate;
+
+    if (userErrors && userErrors.length > 0) {
+      throw new Error(userErrors[0].message);
+    }
+
+    // Map cart response to match expected checkout structure (id, webUrl)
+    return {
+      id: cart.id,
+      webUrl: cart.checkoutUrl
+    };
+  } catch (error) {
+    console.error('Error creating checkout:', error);
+    throw error;
+  }
+}
