@@ -25,7 +25,23 @@ Before building, you must "inject" the merchant's settings into the code.
 
 ---
 
-## 2. Build for Android (Google Play)
+## 2. Build for Android
+
+You have two options for building the Android app:
+
+### Option A: Build APK (For Testing/Sideloading)
+Use this if you want to install the app on your own device without using the Play Store.
+
+1.  **Run the Build**:
+    ```bash
+    eas build --platform android --profile preview
+    ```
+2.  **Download & Install**:
+    *   EAS will provide a link to download the `.apk` file.
+    *   Download this file to your Android phone and install it.
+
+### Option B: Build AAB (For Google Play Store)
+Use this when you are ready to publish to the store.
 
 1.  **Login to EAS** (if not already):
     ```bash
