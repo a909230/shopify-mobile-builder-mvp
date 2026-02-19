@@ -2,7 +2,11 @@
 
 ## 1. Scaffold the Shopify App (Backend)
 
+**Recommended:** Deploy the backend to a VM for stable development. See [DEPLOYMENT.md](./DEPLOYMENT.md).
+
+If running locally:
 The backend is located in `mobile-builder-backend`.
+
 
 ## 2. Database Setup (Prisma + Postgres)
 

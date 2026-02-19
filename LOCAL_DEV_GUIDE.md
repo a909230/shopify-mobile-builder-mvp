@@ -1,4 +1,9 @@
+# ⚠️ LEGACY: Local Development Guide
+
+> **RECOMMENDED:** Use the VM Deployment method (`DEPLOYMENT.md`) for a stable backend. Use this guide only if you need to debug the backend logic locally on your laptop.
+
 # 🚀 Reliable Restart Guide (USB Method)
+
 
 This is the **most robust way** to run the project. It uses USB to connect your phone directly to your computer's localhost, avoiding all Wi-Fi and network firewall issues.
 
