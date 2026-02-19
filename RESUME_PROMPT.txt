@@ -4,29 +4,35 @@ You are helping the user build a Shopify "mobile app builder" MVP.
 - `mobile-app/`: React Native (Expo) consumer app.
 - `mobile-builder-backend/`: Shopify Embedded App (Remix/Node).
 
-**Current Status:**
-1.  **Mobile App**:
+**Current Status (Feb 2026):**
+1.  **Architecture Update (VM Deployment):**
+    -   We moved the Backend to a **Linux VM** using Docker to solve stable URL issues.
+    -   Branch: `deploy/vm`.
+    -   Docs: `DEPLOYMENT.md` contains the full setup guide.
+    -   The backend runs on the VM (Docker Compose + Cloudflare Tunnel).
+    -   The mobile app runs locally on the developer's Mac (`npm run ios`).
+
+2.  **Mobile App**:
     -   **Native Shopping Cart**: Working.
     -   **Native Account Screen**: Login & Orders.
     -   **Theming & Homepage**: Dynamic Banner/Title.
-    -   **White Label Architecture**:
-        -   Refactored to support "One Codebase, Many Apps".
-        -   `npm run configure <CODE>` fetches merchant config and bakes it into the app.
-        -   `app.config.js` and `build.js` now drive the build process.
-    -   **Server Settings**: Editable in Login Screen.
-2.  **Backend**:
-    -   **Store Config**: Extended to support `bannerUrl`, `welcomeTitle`, `welcomeSubtitle`.
-    -   **Admin Dashboard**: Added "Home Screen" section for merchants to configure the app's look.
-    -   **Scopes**: Includes `unauthenticated_read/write_customers` for login.
-3.  **Git**:
-    -   Repo: `https://github.com/a909230/shopify-mobile-builder-mvp`
+    -   **White Label Architecture**: "One Codebase, Many Apps" refactor is done.
 
-**Goal for New Chat: "Push Notifications & App Store Prep"**
-1.  **Push Notifications**: Setup Expo Push Notifications for order updates.
-2.  **App Store Prep**: Icon generation, splash screen finalization.
-3.  **Publishing Workflow**: Execute the steps in `PUBLISHING.md` (Google Play/App Store).
+3.  **Backend**:
+    -   **Store Config**: Supports `bannerUrl`, `welcomeTitle`, `welcomeSubtitle`.
+    -   **Admin Dashboard**: Merchants configure the app look here.
+
+**Immediate Next Steps (When Resuming):**
+1.  **Verify VM Deployment**:
+    -   SSH into the VM.
+    -   Run `git pull` and `docker compose up -d --build`.
+    -   Update Shopify Partner Dashboard with the new Tunnel URL.
+2.  **Resume Mobile Dev**:
+    -   Ensure `mobile-app/src/config.js` or `.env` points to the new VM URL (or verify the app fetches it dynamically).
+3.  **Features**:
+    -   Push Notifications.
+    -   App Store Publishing (`PUBLISHING.md`).
 
 **Instructions for AI:**
--   The user has the app running.
--   The Native Shopping, Account, Homepage, and White Label Builder flows are complete.
--   Next focus is on re-engagement (Push Notifications) or polish (Icons).
+-   If the user asks "How do I start?", refer them to `DEPLOYMENT.md` for the backend and `RESTART_GUIDE.md` for the mobile app.
+-   The backend should generally be running on the VM, not locally, to avoid tunnel issues.
