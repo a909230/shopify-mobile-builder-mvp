@@ -2,11 +2,11 @@
 
 client_id = "9587f0ef0b86add6a9d6754c86ca8736"
 name = "mobile-builder-backend"
-application_url = "https://lutose-joyously-jasmine.ngrok-free.dev"
+application_url = "https://shopify-mobile-builder-rbr.loca.lt"
 embedded = true
 
 [build]
-automatically_update_urls_on_dev = true
+automatically_update_urls_on_dev = false
 include_config_on_deploy = true
 
 [webhooks]
@@ -26,7 +26,7 @@ scopes = "write_products,unauthenticated_read_product_listings,unauthenticated_w
 
 [auth]
 redirect_urls = [
-  "https://lutose-joyously-jasmine.ngrok-free.dev/auth/callback",
-  "https://lutose-joyously-jasmine.ngrok-free.dev/auth/shopify/callback",
-  "https://lutose-joyously-jasmine.ngrok-free.dev/api/auth/callback"
+  "https://shopify-mobile-builder-rbr.loca.lt/auth/callback",
+  "https://shopify-mobile-builder-rbr.loca.lt/auth/shopify/callback",
+  "https://shopify-mobile-builder-rbr.loca.lt/api/auth/callback"
 ]
