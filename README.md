@@ -40,5 +40,6 @@ A solution to let Shopify merchants build their own native mobile app.
 ## Documentation
 - [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md): **Start Here!** Comprehensive guide to understanding and mastering the codebase.
 - [RESTART_GUIDE.md](./RESTART_GUIDE.md): How to run the dev environment locally.
+- [DEPLOYMENT.md](./DEPLOYMENT.md): **New!** How to deploy the backend to a Linux VM for stable development.
 - [PUBLISHING.md](./PUBLISHING.md): How to build & publish white-label apps for clients.
 - [PROJECT_NOTES.md](./PROJECT_NOTES.md): Current project status and roadmap.
