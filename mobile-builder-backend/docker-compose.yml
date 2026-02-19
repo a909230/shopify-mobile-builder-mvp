@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - SHOPIFY_API_KEY=${SHOPIFY_API_KEY}
+      - SHOPIFY_API_SECRET=${SHOPIFY_API_SECRET}
+      - SCOPES=${SCOPES}
+      - HOST=${HOST}
+      - PORT=3000
+      # Add your database URL if needed
+      # - DATABASE_URL=file:./dev.db 
+    volumes:
+      # Persist the database file if using SQLite
+      - ./prisma/dev.db:/app/prisma/dev.db
+
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --url http://app:3000
+    depends_on:
+      - app
