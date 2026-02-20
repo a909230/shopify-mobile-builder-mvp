@@ -7,27 +7,15 @@ A solution to let Shopify merchants build their own native mobile app.
 
 ## 🚀 Quick Start (Development)
 
-**See [RESTART_GUIDE.md](./RESTART_GUIDE.md) for the detailed, error-proof setup guide.**
+**See [FLY_DEPLOY.md](./FLY_DEPLOY.md) for the Cloud-First setup guide.**
 
 ### Summary
-1.  **Tunnel**: `ngrok http 8081` (Copy the https URL).
-2.  **Backend**:
-    ```bash
-    cd mobile-builder-backend
-    npm run dev -- --tunnel-url=YOUR_NGROK_URL:8081
-    ```
-3.  **USB Connection**:
-    ```bash
-    adb reverse tcp:8081 tcp:8081
-    adb reverse tcp:8083 tcp:8083
-    ```
-4.  **Mobile App**:
+1.  **Backend**: `npm run dev`
+2.  **Mobile App**:
     ```bash
     cd mobile-app
     npx expo start --localhost --port 8083 --reset-cache
     ```
-
-4.  **Phone**: Open Expo Go and connect to `exp://localhost:8083`.
 
 ## MVP Flow
 1.  Merchant installs Shopify app.
