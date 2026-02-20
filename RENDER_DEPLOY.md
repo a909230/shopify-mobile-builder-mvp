@@ -27,7 +27,8 @@ Render will detect the `render.yaml` file and ask for the missing environment va
 
 *   `SHOPIFY_API_KEY`: Your Client ID (`d44eecace7cd02de1912c3e434e270c9`).
 *   `SHOPIFY_API_SECRET`: Your Client Secret (from Shopify Partner Dashboard).
-*   `SHOPIFY_APP_URL`: Leave blank for now (we'll update it after deployment).
+*   `SHOPIFY_APP_URL`: Your Render Web Service URL (e.g., `https://mobile-builder-backend-xxxx.onrender.com`). **IMPORTANT:** Do NOT leave this blank.
+
 
 Click **Apply Changes**. Render will start creating your database and web service.
 
@@ -40,7 +41,7 @@ Once the deployment finishes (green checkmarks):
 ### 6. Update Configuration
 1.  **Shopify Partner Dashboard**: Update App URL & Redirect URLs to your new Render URL.
 2.  **Mobile App**: Update `src/config/api.js` (or wherever your API URL is defined) to point to the new backend.
-3.  **Render Env Var**: Go back to Render -> Web Service -> Environment -> Edit `SHOPIFY_APP_URL` and paste your Render URL. Save.
+3.  **Render Env Var (Critical)**: Go back to Render -> Web Service -> Environment -> Edit `SHOPIFY_APP_URL` and ensure it is set to your Render URL (no trailing slash). Save to trigger a restart.
 
 ### 7. Done!
 Your app is now live. Remember the 50-second delay if you haven't used it in a while!
