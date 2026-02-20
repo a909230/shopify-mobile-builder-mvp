@@ -7,10 +7,10 @@ A solution to let Shopify merchants build their own native mobile app.
 
 ## 🚀 Quick Start (Development)
 
-**See [FLY_DEPLOY.md](./FLY_DEPLOY.md) for the Cloud-First setup guide.**
+**See [RENDER_DEPLOY.md](./RENDER_DEPLOY.md) for the Cloud-First setup guide.**
 
 ### Summary
-1.  **Backend**: `npm run dev`
+1.  **Backend**: `npm run dev` (Local Dev) or Deploy to Render.
 2.  **Mobile App**:
     ```bash
     cd mobile-app
@@ -26,6 +26,7 @@ A solution to let Shopify merchants build their own native mobile app.
 6.  App re-skins itself to match the merchant's branding and loads their products natively.
 
 ## Documentation
+- [RENDER_DEPLOY.md](./RENDER_DEPLOY.md): **New!** How to deploy to Render.com (Free & No Card).
 - [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md): **Start Here!** Comprehensive guide to understanding and mastering the codebase.
 - [RESTART_GUIDE.md](./RESTART_GUIDE.md): How to run the dev environment locally.
 - [PUBLISHING.md](./PUBLISHING.md): How to build & publish white-label apps for clients.

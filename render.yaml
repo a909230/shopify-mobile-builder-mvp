@@ -1,0 +1,32 @@
+services:
+  # The Backend Service
+  - type: web
+    name: mobile-builder-backend
+    env: node
+    plan: free
+    repo: https://github.com/a909230/shopify-mobile-builder-mvp
+    rootDir: mobile-builder-backend
+    buildCommand: npm install && npx prisma generate && npm run build
+    startCommand: npm run docker-start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mobile-builder-db
+          property: connectionString
+      - key: SHOPIFY_API_KEY
+        sync: false
+      - key: SHOPIFY_API_SECRET
+        sync: false
+      - key: SCOPES
+        value: write_products,read_products,unauthenticated_read_product_listings
+      - key: SHOPIFY_APP_URL
+        sync: false
+
+databases:
+  # The Database Service
+  - name: mobile-builder-db
+    plan: free
+    databaseName: mobile_builder
+    user: mobile_builder
