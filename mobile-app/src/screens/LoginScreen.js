@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button, StyleSheet, Alert, ActivityIndicator, To
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Default URL - can be edited in the app
-const DEFAULT_API_URL = 'https://lutose-joyously-jasmine.ngrok-free.dev';
+const DEFAULT_API_URL = 'https://mobile-builder-backend.onrender.com';
 
 export default function LoginScreen({ onLogin }) {
   const [code, setCode] = useState('');

@@ -11,7 +11,7 @@
 7. **New**: Native Account Screen (Login & Order History) implemented.
 8. **New**: Dynamic Theming (Primary Color) implemented.
 9. **New**: Dynamic Homepage (Banner, Title) configured via Admin.
-11. **New**: Cloud-First Architecture with Render.com deployment implemented.
+12. **New**: API Version synchronized to `2026-01` and Scopes handling improved.
 
 ## Documentation
 - See `PUBLISHING.md` for the complete guide on building and submitting apps to Google Play and the App Store.

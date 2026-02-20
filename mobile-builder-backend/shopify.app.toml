@@ -2,15 +2,15 @@
 
 client_id = "9587f0ef0b86add6a9d6754c86ca8736"
 name = "mobile-builder-backend"
-application_url = "http://localhost:8081"
+application_url = "https://mobile-builder-backend.onrender.com"
 embedded = true
 
 [build]
-automatically_update_urls_on_dev = false
+automatically_update_urls_on_dev = true
 include_config_on_deploy = true
 
 [webhooks]
-api_version = "2026-04"
+api_version = "2026-01"
 
   [[webhooks.subscriptions]]
   topics = [ "app/uninstalled" ]
@@ -26,7 +26,7 @@ scopes = "write_products,unauthenticated_read_product_listings,unauthenticated_w
 
 [auth]
 redirect_urls = [
-  "https://lutose-joyously-jasmine.ngrok-free.dev/auth/callback",
-  "https://lutose-joyously-jasmine.ngrok-free.dev/auth/shopify/callback",
-  "https://lutose-joyously-jasmine.ngrok-free.dev/api/auth/callback"
+  "https://mobile-builder-backend.onrender.com/auth/callback",
+  "https://mobile-builder-backend.onrender.com/auth/shopify/callback",
+  "https://mobile-builder-backend.onrender.com/api/auth/callback"
 ]

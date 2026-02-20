@@ -43,5 +43,8 @@ Once the deployment finishes (green checkmarks):
 2.  **Mobile App**: Update `src/config/api.js` (or wherever your API URL is defined) to point to the new backend.
 3.  **Render Env Var (Critical)**: Go back to Render -> Web Service -> Environment -> Edit `SHOPIFY_APP_URL` and ensure it is set to your Render URL (no trailing slash). Save to trigger a restart.
 
-### 7. Done!
-Your app is now live. Remember the 50-second delay if you haven't used it in a while!
+### 8. Final Verification
+1.  **Reinstall App**: If you encounter 401 errors or permission issues, uninstall the app from your Development Store and reinstall it using your Render URL (`https://...onrender.com/auth?shop=...`).
+2.  **Verify Scopes**: Ensure `SCOPES` in Render Environment variables matches: `write_products,read_products,unauthenticated_read_product_listings`.
+3.  **Update Config**: If you change `shopify.app.toml`, run `npx shopify app config push` locally to sync changes to Shopify.
+

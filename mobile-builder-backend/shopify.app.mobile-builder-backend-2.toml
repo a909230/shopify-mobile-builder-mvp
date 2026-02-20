@@ -2,31 +2,26 @@
 
 client_id = "d44eecace7cd02de1912c3e434e270c9"
 name = " mobile-builder-backend-2"
-application_url = "http://localhost:8081"
+application_url = "https://example.com"
 embedded = true
 
 [build]
-automatically_update_urls_on_dev = false
-include_config_on_deploy = true
+automatically_update_urls_on_dev = true
 
 [webhooks]
-api_version = "2026-04"
-
-  [[webhooks.subscriptions]]
-  topics = [ "app/uninstalled" ]
-  uri = "/webhooks/app/uninstalled"
+api_version = "2026-01"
 
   [[webhooks.subscriptions]]
   topics = [ "app/scopes_update" ]
   uri = "/webhooks/app/scopes_update"
 
+  [[webhooks.subscriptions]]
+  topics = [ "app/uninstalled" ]
+  uri = "/webhooks/app/uninstalled"
+
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products,unauthenticated_read_product_listings,unauthenticated_write_checkouts,unauthenticated_read_customer_tags,unauthenticated_read_content,unauthenticated_read_selling_plans,unauthenticated_write_customers,unauthenticated_read_customers"
+scopes = "write_products"
 
 [auth]
-redirect_urls = [
-  "https://lutose-joyously-jasmine.ngrok-free.dev/auth/callback",
-  "https://lutose-joyously-jasmine.ngrok-free.dev/auth/shopify/callback",
-  "https://lutose-joyously-jasmine.ngrok-free.dev/api/auth/callback"
-]
+redirect_urls = [ "https://example.com/api/auth" ]

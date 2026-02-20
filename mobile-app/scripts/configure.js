@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Default API URL (can be overridden)
-const API_URL = process.env.API_URL || 'https://lutose-joyously-jasmine.ngrok-free.dev';
+const API_URL = process.env.API_URL || 'https://mobile-builder-backend.onrender.com';
 
 const storeCode = process.argv[2];
 
