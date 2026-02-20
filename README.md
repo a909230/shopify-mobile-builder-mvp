@@ -5,29 +5,21 @@ A solution to let Shopify merchants build their own native mobile app.
 - **Backend**: Remix app (Node.js) embedded in Shopify Admin.
 - **Mobile**: React Native (Expo) app for shoppers.
 
-## 🚀 Quick Start (Development)
+## 📚 Documentation
+- **[MASTER_GUIDE.md](./MASTER_GUIDE.md)**: **Start Here!** The complete guide to setup, running, and architecture.
+- **[RESUME_PROMPT.md](./RESUME_PROMPT.md)**: Context file for AI assistants to quickly understand the project.
 
-**See [RENDER_DEPLOY.md](./RENDER_DEPLOY.md) for the Cloud-First setup guide.**
-
-### Summary
-1.  **Backend**: `npm run dev` (Local Dev) or Deploy to Render.
-2.  **Mobile App**:
+## 🚀 Quick Summary
+1.  **Backend**: We recommend deploying the backend to **Render** (Free Tier) for a stable API.
+2.  **Mobile**: Run locally with Expo.
     ```bash
+    # 1. Connect Android Phone via USB
+    adb reverse tcp:8083 tcp:8083
+
+    # 2. Start App
     cd mobile-app
     npx expo start --localhost --port 8083 --reset-cache
     ```
+3.  **Connect**: Open Expo Go, enter your Render Backend URL in settings, and login.
 
-## MVP Flow
-1.  Merchant installs Shopify app.
-2.  Merchant configures branding (Logo, Color).
-3.  App generates a **Store Code** (e.g., `123456`).
-4.  Shopper downloads the generic "Mobile Builder" app.
-5.  Shopper enters the Store Code.
-6.  App re-skins itself to match the merchant's branding and loads their products natively.
-
-## Documentation
-- [RENDER_DEPLOY.md](./RENDER_DEPLOY.md): **New!** How to deploy to Render.com (Free & No Card).
-- [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md): **Start Here!** Comprehensive guide to understanding and mastering the codebase.
-- [RESTART_GUIDE.md](./RESTART_GUIDE.md): How to run the dev environment locally.
-- [PUBLISHING.md](./PUBLISHING.md): How to build & publish white-label apps for clients.
-- [PROJECT_NOTES.md](./PROJECT_NOTES.md): Current project status and roadmap.
+*For detailed instructions, see the [MASTER_GUIDE.md](./MASTER_GUIDE.md).*
