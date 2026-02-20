@@ -2,11 +2,11 @@
 
 client_id = "d44eecace7cd02de1912c3e434e270c9"
 name = " mobile-builder-backend-2"
-application_url = "https://lutose-joyously-jasmine.ngrok-free.dev"
+application_url = "http://localhost:8081"
 embedded = true
 
 [build]
-automatically_update_urls_on_dev = true
+automatically_update_urls_on_dev = false
 include_config_on_deploy = true
 
 [webhooks]
